@@ -63,42 +63,14 @@ struct Input {
   auto Rumble(uint64_t id, bool enable) -> bool;
 
   auto OnChange(const function<void(shared_ptr<sen::HID::Device>, uint, uint, int16_t, int16_t)> &) -> void;
-  auto DoChange(
-      shared_ptr<sen::HID::Device> device,
-      uint group,
-      uint input,
-      int16_t old_value,
-      int16_t new_value) -> void;
+  auto DoChange(shared_ptr<sen::HID::Device> device, uint group, uint input, int16_t old_value, int16_t new_value) -> void;
 
  protected:
   Input &self;
   unique_ptr<InputDriver> instance_;
   function<void(shared_ptr<sen::HID::Device>, uint, uint, int16_t, int16_t)> change;
 };
+
 }
-
-#if defined(INPUT_CARBON)
-#include <ruby/input/carbon.cpp>
-#endif
-
-#if defined(INPUT_QUARTZ)
-#include <ruby/input/quartz.cpp>
-#endif
-
-#if defined(INPUT_SDL)
-#include <ruby/input/sdl.cpp>
-#endif
-
-#if defined(INPUT_UDEV)
-#include <ruby/input/udev.cpp>
-#endif
-
-#if defined(INPUT_WINDOWS)
-#include "windows.hpp"
-#endif
-
-#if defined(INPUT_XLIB)
-#include <ruby/input/xlib.cpp>
-#endif
 
 #endif //INPUT_HPP_
